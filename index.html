@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Library Management System</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Library Management System</h1>
+        
+        {% if message %}
+            <p class="message">{{ message }}</p>
+        {% endif %}
+
+        <h2>Available Books</h2>
+        <table>
+            <tr>
+                <th>Title</th>
+                <th>Author</th>
+                <th>ISBN</th>
+                <th>Genre</th>
+                <th>Status</th>
+            </tr>
+            {% for book in books %}
+            <tr>
+                <td>{{ book.title }}</td>
+                <td>{{ book.author }}</td>
+                <td>{{ book.ISBN }}</td>
+                <td>{{ book.genre }}</td>
+                <td>{{ 'Available' if book.is_available() else 'Borrowed' }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+
+        <h2>Borrow a Book</h2>
+        <form action="/borrow" method="POST">
+            <input type="text" name="book_title" placeholder="Enter Book Title" required>
+            <button type="submit">Borrow</button>
+        </form>
+
+        <h2>Return a Book</h2>
+        <form action="/return" method="POST">
+            <input type="text" name="book_title" placeholder="Enter Book Title" required>
+            <button type="submit">Return</button>
+        </form>
+    </div>
+</body>
+</html>
